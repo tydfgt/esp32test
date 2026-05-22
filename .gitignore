@@ -1,0 +1,22 @@
+# Build
+build/
+*.o
+*.elf
+*.bin
+*.map
+
+# ESP-IDF
+sdkconfig.old
+managed_components/
+
+# IDE
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (WiFi passwords, API keys)
+# Do NOT commit files with real credentials
