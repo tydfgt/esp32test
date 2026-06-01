@@ -30,16 +30,16 @@
 const unsigned int SSH_TASK_STACK = 32768;
 
 // ==================== WiFi 配置（请修改为你的 WiFi） ====================
-const char* WIFI_SSID     = "装备集团";
-const char* WIFI_PASSWORD = "88888888";
+const char* WIFI_SSID     = "<your-wifi-ssid>";
+const char* WIFI_PASSWORD = "<your-wifi-password>";
 
 // ==================== SSH 远程服务器配置 ====================
-const char*  SSH_HOST     = "8.148.200.227";
+const char*  SSH_HOST     = "<your-server-ip>";
 const int    SSH_PORT     = 22;
-const char*  SSH_USER     = "root";
-const char*  SSH_PASSWORD = "Ysd_zbjt2025";
-const char*  REMOTE_DIR   = "/root/esp32";
-const char*  REMOTE_LOG   = "/root/esp32/esp32_log.txt";
+const char*  SSH_USER     = "<ssh-username>";
+const char*  SSH_PASSWORD = "<ssh-password>";
+const char*  REMOTE_DIR   = "/path/to/log/dir";
+const char*  REMOTE_LOG   = "/path/to/log/dir/esp32_log.txt";
 
 // ==================== LED 配置 ====================
 #define LED_PIN         2                    // ESP32 内置 LED (D2)
