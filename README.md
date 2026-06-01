@@ -16,7 +16,25 @@ ESP32 相关开发项目，包含基础实验和墨水屏应用。
 | [breath_d2](projects/breath_d2/) | LED 呼吸灯（ESP-IDF） |
 | [hello_world](projects/hello_world/) | Hello World（ESP-IDF） |
 | [arduino_blink](projects/arduino_blink/) | LED 闪烁（Arduino） |
-| [ssh_log_uploader](projects/ssh_log_uploader/) | 🆕 SSH 远程日志上传器（LibSSH-ESP32） |
+| [gpio_button_test](projects/gpio_button_test/) | 🔘 按键控制 LED + SSH 远程上报（FreeRTOS 三任务） |
+| [ssh_log_uploader](projects/ssh_log_uploader/) | SSH 远程日志上传器（LibSSH-ESP32） |
+
+### gpio_button_test 简介
+
+按键控制 LED + SSH 远程上报，基于 FreeRTOS 三任务架构。
+
+- 🔘 **短按 D18**：D2 LED 亮/灭切换
+- 🕯️ **长按 D18 (>1s)**：D2 持续闪烁（200ms 间隔），闪烁中短按停止
+- 📡 **每 10s SSH 上报**：闪烁计数 + 时间戳 → `echo >>` 远程服务器日志
+- 🧵 **三任务架构**：btnTask (Core 0) → Queue → ledTask (Core 1)，sshTask (Core 0, 24KB)
+- 🔐 LibSSH-ESP32 纯密码认证，WiFi 自动重连 + NTP 时间同步
+- 📉 **Flash 优化**：去 SPIFFS、去 String 类、裁剪 LibSSH（关 WITH_SERVER + DEBUG_CALLTRACE），从 85% → 81%
+
+```bash
+cd projects/gpio_button_test
+arduino-cli compile --fqbn esp32:esp32:esp32 -u -p /dev/ttyUSB0
+arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
+```
 
 ### ssh_log_uploader 简介
 
@@ -72,10 +90,21 @@ arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200
 
 | 库 | 用途 | 项目 |
 | --- | --- | --- |
-| **LibSSH-ESP32** | SSH/SCP 客户端 | ssh_log_uploader |
+| **LibSSH-ESP32** | SSH/SCP 客户端 | gpio_button_test, ssh_log_uploader |
 | waveshare-e-Paper | 墨水屏驱动 | epaper_* |
 | ArduinoJson 7.x | 天气 API JSON 解析 | epaper_clock |
 | ESP32 Core 3.3.8 | Arduino ESP32 核心 | 全部 Arduino 项目 |
+
+### LibSSH-ESP32 Flash 优化
+
+为节省 Flash，对 `LibSSH-ESP32` 库配置做了以下裁剪（修改文件：`~/Arduino/libraries/LibSSH-ESP32/src/libssh_esp32_config.h`）：
+
+| 选项 | 原始 | 修改后 | 效果 |
+|------|------|--------|------|
+| `WITH_SERVER` | `#define ... 1` | `/* #undef */` | 去掉 SSH 服务端代码 |
+| `DEBUG_CALLTRACE` | `#define ... 1` | `/* #undef */` | 去掉调试追踪 |
+
+> ⚠️ 升级 LibSSH-ESP32 库后需重新应用以上修改。
 
 ## License
 
