@@ -89,4 +89,4 @@ controlTask():
 
 ## License
 
-MIT
+GNU Lesser General Public License v2.1 — 与 LibSSH-ESP32 保持一致。详见 [LICENSE](LICENSE)。

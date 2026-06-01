@@ -79,4 +79,4 @@ arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200
 
 ## License
 
-MIT
+各项目分别适用其声明的许可证。`ssh_log_uploader` 使用 GNU LGPL v2.1（与 LibSSH-ESP32 一致）。
