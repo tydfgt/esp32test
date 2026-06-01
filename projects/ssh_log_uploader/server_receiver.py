@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-ESP32 日志接收服务器
-运行在远程服务器 8.148.200.227 上，接收 ESP32 发来的日志并写入文件。
+ESP32 日志接收服务器（HTTP 备选方案）
+运行在远程 Linux 服务器上，接收 ESP32 发来的日志并写入文件。
 
 启动方式：
     python3 server_receiver.py
 
-默认监听 8080 端口，日志保存到 /root/esp32/esp32_log.txt
+默认监听 8080 端口，日志保存到指定路径。
+注意：本项目已改用 SSH exec 方案，此脚本仅作备选参考。
 """
 
 import os
