@@ -1,8 +1,9 @@
 # ESP32 工作区 — AI 编程上下文文档
 
 > **目标读者**：AI 编程助手（GitHub Copilot 等）
-> **更新日期**：2026-06-01（新增 esp32_flasher 烧录工具、microros_publisher 项目）
+> **更新日期**：2026-06-01（同步 Gitee/GitHub，新增 esp32_flasher 烧录工具、microros_publisher 项目、upload 文档目录）
 > **机器**：Ubuntu 22.04.5 LTS (x86_64)，主机名 `cedarTX`
+> **Git 仓库**：[Gitee](https://gitee.com/tydfgt/esp32) | [GitHub](https://github.com/tydfgt/esp32test)
 
 ---
 
